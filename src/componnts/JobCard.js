@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import ReactModal from 'react-modal';
+import { IoIosCloseCircle } from "react-icons/io";
 
 function JobCard ({data}) {
+    const [modalIsOpen, setIsOpen] = React.useState(false);
 
+  function openModal() {
+    setIsOpen(true);
+  }
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      width:'400px',
+    },
+  };
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   return (
     <>
       <div className=' z-1 py-5 px-3 border rounded-xl w-[370px] space-y-3 shadow-md hover:scale-105 m-5'>
@@ -50,7 +71,7 @@ function JobCard ({data}) {
               {data.jobDetailsFromCompany && data.jobDetailsFromCompany.substring(0,370)}{' '}
             </p>
           </div>
-          <button className='w-full  border text-purple-600'>View More</button>
+          <button onClick={()=>openModal()} className='w-full  border text-purple-600'>View More</button>
         </div>
 
         {/* Skills and Minimum Exp */}
@@ -73,7 +94,7 @@ function JobCard ({data}) {
             <h1 className='text-sm font-bold text-gray-400'>
               Minimum Experience
             </h1>
-            <h4 className='font-[300] text-md'>{data.minExp} years</h4>
+            <h4 className='font-[300] text-md'>{data.minExp} years  </h4>
           </div>
         </div>
 
@@ -81,6 +102,7 @@ function JobCard ({data}) {
         <div >
           <Link
             to={`${data.jdLink}`}
+            
             className='w-full py-2 border mt-5 bg-cyan-300 rounded-xl flex  items-center justify-center font-semibold'
           >
             <img
@@ -92,6 +114,34 @@ function JobCard ({data}) {
           </Link>
         </div>
       </div>
+     
+        <ReactModal  contentLabel="Example Modal"  isOpen={modalIsOpen} style={customStyles} >
+        <div className='flex justify-between items-start  '><div>
+            <img src={data.logoUrl} className='w-[50px] h-[50px]'/>
+            <h1 className='text-2xl font-semibold'>{data.jobRole}-{data.companyName}</h1>
+        </div>
+        <button onClick={()=>closeModal()}><IoIosCloseCircle size={30}/></button>
+        
+        </div>
+        <h2>Job Description</h2>
+        <h1>{data?.jobDetailsFromCompany}</h1>
+        <div >
+          <Link
+            to={`${data.jdLink}`}
+            
+            className='w-full py-2 border mt-5 bg-cyan-300 rounded-xl flex  items-center justify-center font-semibold'
+          >
+            <img
+              className='h-auto w-10'
+              src={require('../Assets/thunder-emoji.png')}
+              alt='thinder emoji'
+            />{' '}
+            Easy Apply
+          </Link>
+        </div>
+      </ReactModal>
+     
+      
     </>
   )
 }

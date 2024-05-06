@@ -1,4 +1,5 @@
 
+import DropDownComp from './DropDownComp';
 import JobCard from './JobCard';
 
 import React, { useState, useEffect } from 'react';
@@ -20,7 +21,8 @@ function fetchData(limit, offset) {
   };
 
   return fetch("https://api.weekday.technology/adhoc/getSampleJdJSON", requestOptions)
-    .then(response => response.json())
+    .then(response => response.json()
+    )
     .catch(error => console.error(error));
 }
 
@@ -65,6 +67,19 @@ function Main() {
   }, []);
 
   return (
+    <>
+    <div className='px-5 py-2'>
+        {/* <DropDownComp/> */}
+        <label className=''>
+            
+            <select className='border  p-2 px-4 outline-blue '>
+                <option className=''>Hllo</option>
+                <option>Hllo</option>
+                <option>Hllo</option>
+            </select>
+        </label>
+    </div>
+    
     <div className='flex justify-between flex-wrap '>
       {data.map((item, index) => (
         <div key={index}>
@@ -73,6 +88,7 @@ function Main() {
       ))}
       {loading && <div>Loading...</div>}
     </div>
+    </>
   );
 }
 
