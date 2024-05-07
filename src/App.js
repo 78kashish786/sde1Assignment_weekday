@@ -23,7 +23,7 @@ function App() {
         <Main/>
 
       </div>
-      <Sidebar imgsrc={require('./Assets/logo2.jpeg')}/>
+      <Sidebar color={'bg-cyan-200'} imgsrc={require('./Assets/logo2.jpeg')}/>
     </div>
   );
 }

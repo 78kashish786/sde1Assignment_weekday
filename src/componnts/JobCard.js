@@ -26,7 +26,7 @@ function JobCard ({data}) {
   }
   return (
     <>
-      <div className=' z-1 py-5 px-3 border rounded-xl w-[370px] space-y-3 shadow-md hover:scale-105 m-5'>
+      <div className=' z-1 py-5 px-3 border rounded-xl w-[370px] space-y-3 shadow-md hover:shadow-xl   md:m-5'>
         {/* History of job  */}
         <div className='flex gap-1 items-center text-[10px] text-gray-600 p-1 border rounded-full w-[50%] shadow-sm'>
           <img
@@ -71,7 +71,7 @@ function JobCard ({data}) {
               {data.jobDetailsFromCompany && data.jobDetailsFromCompany.substring(0,370)}{' '}
             </p>
           </div>
-          <button onClick={()=>openModal()} className='w-full  border text-purple-600'>View More</button>
+          <button onClick={()=>openModal()} className='w-full  hover:font-semibold text-purple-600'>View More</button>
         </div>
 
         {/* Skills and Minimum Exp */}
@@ -103,7 +103,7 @@ function JobCard ({data}) {
           <Link
             to={`${data.jdLink}`}
             
-            className='w-full py-2 border mt-5 bg-cyan-300 rounded-xl flex  items-center justify-center font-semibold'
+            className=' hover:bg-cyan-100 w-full py-2 border mt-5 bg-cyan-300 rounded-xl flex  items-center justify-center font-semibold'
           >
             <img
               className='h-auto w-10'
@@ -116,20 +116,31 @@ function JobCard ({data}) {
       </div>
      
         <ReactModal  contentLabel="Example Modal"  isOpen={modalIsOpen} style={customStyles} >
-        <div className='flex justify-between items-start  '><div>
+        <div className='flex justify-between items-start mb-5  '><div>
             <img src={data.logoUrl} className='w-[50px] h-[50px]'/>
             <h1 className='text-2xl font-semibold'>{data.jobRole}-{data.companyName}</h1>
         </div>
-        <button onClick={()=>closeModal()}><IoIosCloseCircle size={30}/></button>
+        <button onClick={()=>closeModal()}><IoIosCloseCircle className='hover:text-blue-500' size={30}/></button>
         
         </div>
-        <h2>Job Description</h2>
+        <ul className='flex gap-4  text-[9px] text-blue-600 '>
+              <li className='bg-blue-200 rounded-full py-1 px-2'>
+                React Native
+              </li>
+              <li className='bg-blue-200 rounded-full py-1 px-2'>
+                React Native
+              </li>
+              <li className='bg-blue-200 rounded-full py-1 px-2'>
+                React Native
+              </li>
+            </ul>   
+        <h2 className='txt-xl font-semibold'>Job Description</h2>
         <h1>{data?.jobDetailsFromCompany}</h1>
         <div >
           <Link
             to={`${data.jdLink}`}
             
-            className='w-full py-2 border mt-5 bg-cyan-300 rounded-xl flex  items-center justify-center font-semibold'
+            className='hover:bg-cyan-100 w-full py-2 border mt-5 bg-cyan-300 rounded-xl flex  items-center justify-center font-semibold'
           >
             <img
               className='h-auto w-10'
