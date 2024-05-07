@@ -49,7 +49,7 @@ function JobCard ({data}) {
               </h2>
               <h3 className='text-[14px] font-[300]'>{data.jobRole}</h3>
               <h5 className='text-[12px] font-[400]'>
-                {data.location}| Exp:5.5 years
+                {data.location}| Exp:{data.minExp} years
               </h5>
             </div>
           </div>

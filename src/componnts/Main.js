@@ -1,6 +1,6 @@
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setLocationFilter, setRoleFilter,setMinimumExperience,setCompanyFilter } from '../filterSlice.js';
+import { setLocationFilter, setRoleFilter,setMinimumExperience,setCompanyFilter,setMiniSalary } from '../filterSlice.js';
 
 import JobCard from './JobCard';
 
@@ -35,7 +35,7 @@ export function extraUniqueValues(datas,key){
 function Main() {
 
   const dispatch= useDispatch();
-  const {location, role, experience, company} = useSelector(state=>state.filters);
+  const {location, role, experience, company,minSalary} = useSelector(state=>state.filters);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
@@ -57,6 +57,7 @@ function Main() {
    var allRoles= useMemo(()=>extraUniqueValues(data,'jobRole'),[data]);
    var allExperiences=  useMemo(()=>extraUniqueValues(data,'minExp',[data]));
    var allCompanies = useMemo(()=>extraUniqueValues(data, 'companyName',[data]));
+   var allSalary=  useMemo(()=>extraUniqueValues(data,'minJdSalary',[data]));
   
 
   const handleLocationChange =(e)=>{
@@ -75,6 +76,9 @@ function Main() {
     dispatch(setCompanyFilter(e.target.value));
   }
  
+  const handlesalaryChange = (e)=>{
+    dispatch(setMiniSalary(e.target.value));
+  }
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop ===
@@ -104,7 +108,8 @@ function Main() {
       (location === '' || job.location === location) &&
       (role === '' || job.jobRole === role)&&
       (experience=== '' || job.minExp >= experience)&&
-      (company==='' || job.companyName ===company)
+      (company==='' || job.companyName ===company)&&
+      (minSalary==='' || job.minJdSalary >= minSalary)
     );
   });
 
@@ -148,13 +153,22 @@ function Main() {
         <label className=''>
         <h1 className='text-[12px] font-semibold'>Company</h1>
           <select className='border p-2 px-4 outline-blue' value={company} onChange={handleCompanyChange}>
-            <option value=""></option>
+            <option value="">Company name </option>
             {allCompanies.map((item, index) => (
               <option  key={index} value={item}>{item}</option>
             ))}
           </select>
         </label>
        
+        <label className=''>
+        <h1 className='text-[12px] font-semibold'>Salary</h1>
+          <select className='border p-2 px-4 outline-blue' value={minSalary} onChange={handlesalaryChange}>
+            <option value="">0 LPA</option>
+            {allSalary.map((item, index) => (
+              <option  key={index} value={item}>{item} LPA</option>
+            ))}
+          </select>
+        </label>
         
    
     </div>
