@@ -1,6 +1,6 @@
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setLocationFilter, setRoleFilter,setMinimumExperience } from '../filterSlice.js';
+import { setLocationFilter, setRoleFilter,setMinimumExperience,setCompanyFilter } from '../filterSlice.js';
 
 import JobCard from './JobCard';
 
@@ -35,7 +35,7 @@ export function extraUniqueValues(datas,key){
 function Main() {
 
   const dispatch= useDispatch();
-  const {location, role, experience} = useSelector(state=>state.filters);
+  const {location, role, experience, company} = useSelector(state=>state.filters);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
@@ -56,6 +56,7 @@ function Main() {
   var allLocations=useMemo(()=>extraUniqueValues(data,'location'),[data]);
    var allRoles= useMemo(()=>extraUniqueValues(data,'jobRole'),[data]);
    var allExperiences=  useMemo(()=>extraUniqueValues(data,'minExp',[data]));
+   var allCompanies = useMemo(()=>extraUniqueValues(data, 'companyName',[data]));
   
 
   const handleLocationChange =(e)=>{
@@ -69,6 +70,9 @@ function Main() {
 
   const handleExperienceChange = (e)=>{
     dispatch( setMinimumExperience(e.target.value));
+  }
+  const handleCompanyChange =(e)=>{
+    dispatch(setCompanyFilter(e.target.value));
   }
  
   const handleScroll = () => {
@@ -99,7 +103,8 @@ function Main() {
     return (
       (location === '' || job.location === location) &&
       (role === '' || job.jobRole === role)&&
-      (experience=== '' || job.minExp >= experience)
+      (experience=== '' || job.minExp >= experience)&&
+      (company==='' || job.companyName ===company)
     );
   });
 
@@ -137,6 +142,15 @@ function Main() {
             <option value="">All Roles</option>
             {allRoles.map((role, index) => (
               <option  key={index} value={role}>{role}</option>
+            ))}
+          </select>
+        </label>
+        <label className=''>
+        <h1 className='text-[12px] font-semibold'>Company</h1>
+          <select className='border p-2 px-4 outline-blue' value={company} onChange={handleCompanyChange}>
+            <option value=""></option>
+            {allCompanies.map((item, index) => (
+              <option  key={index} value={item}>{item}</option>
             ))}
           </select>
         </label>

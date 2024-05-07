@@ -4,6 +4,7 @@ const initialState={
     location:"",
     role:"",
     experience:"",
+    company:""
 };
 
 const filterSlice= createSlice({
@@ -18,9 +19,12 @@ const filterSlice= createSlice({
         },
         setMinimumExperience:(state,action)=>{
             state.experience = action.payload;
+        },
+        setCompanyFilter:(state,action)=>{
+            state.company=action.payload
         }
     },
 });
 
-export const {setRoleFilter,setLocationFilter,setMinimumExperience} = filterSlice.actions;
+export const {setRoleFilter,setLocationFilter,setMinimumExperience, setCompanyFilter} = filterSlice.actions;
 export default filterSlice.reducer;
